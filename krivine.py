@@ -45,8 +45,8 @@ class krivine_machine:
 
     def choose (self) :
         foo=self.term[-1]
-        foo=foo.isnumeric()
-        match foo :
+        foo=isinstance(foo, int)
+        match foo:
             case True :
                 match self.term[-1] :
                     case 0 :
