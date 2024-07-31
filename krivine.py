@@ -61,7 +61,7 @@ class krivine_machine:
         self.term = input_lambda
         
         self.choose();
-        while (len(self.stack) && len(self.environment)):
+        while (len(self.stack) and len(self.environment)):
             self.choose();
         return self.stack
         
