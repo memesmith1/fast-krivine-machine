@@ -7,7 +7,6 @@ class krivine_machine:
     #apply a to b
     def apply (self):
 
-        print("apply\n")  
         self.stack = [self.term[ -1 ] , self.environment ]
 
         if type(self.term[-2]) == int:
@@ -19,7 +18,6 @@ class krivine_machine:
 
         #perform lambda abstraction
     def abstract (self):
-        print("abstract\n")
           
         self.environment = self.stack
          
@@ -30,9 +28,6 @@ class krivine_machine:
          #zero instruction
     def zero (self):
 
-        print("zero\n")
-#        print("environment:\n")
- #       print(self.
 
         if type(self.environment[0]) == int:
             self.term = [self.environment[ 0 ]]
@@ -47,24 +42,30 @@ class krivine_machine:
 
     def success (self):
 
-        print("success\n")
 
-        self.term[ -1 ] = self.term[ -1 ] - 1
+        self.term[0] = self.term[0] - 1
 
         self.environment = self.environment[ 1 ]
 
+        #stack unchanged
+
+        #select which function to run
     def choose(self):
         print(self.term)
         print(self.stack)
         print(self.environment)
         if self.term[0] == -1:
+   #         print("abstract")
             self.abstract(self)
         elif len(self.term) == 1:
             if self.term[-1] == 0 :
+  #              print("zero")
                 self.zero(self)
-            else : 
+            else :
+ #               print("success")
                 self.success(self)
         else :
+#            print("apply")
             self.apply(self)
 
             
