@@ -7,11 +7,11 @@ class krivine_machine:
     #apply a to b
     def apply (self):
           
-        self.stack = [ [term[ -1 ] , self.environment ] ,
+        self.stack = [ [self.term[ -1 ] , self.environment ] ,
             self.stack
             ]
             
-        self.term = term[ -2 ]
+        self.term = self.term[ -2 ]
             
         #self.environment unchanged
 
@@ -37,33 +37,34 @@ class krivine_machine:
 
     def success (self):
 
-        self.term = self.term - 1
+        self.term[ -1 ] = self.term[ -1 ] - 1
 
         self.environment = self.environment[ 1 ]
 
     def choose(self):
-        if (type(self.term[-1]) == int) and self.term[-1] == 0:
-            self.zero()
-
-        elif type(self.term[-1].isnumeric() == int):
-            self.success()
-            return
-
+        if type(self.term[-1]) == int:
+            if self.term[-1] == 0 :
+                self.zero(self)
+            else : 
+                self.success(self)
         elif self.term[-2] == -1:
-            self.app()
-
+            self.abstract(self)
         else :
-            self.abstract()
+            self.apply(self)
+        print(self.term)
             
     def run(self, input_lambda):
         self.stack = []
         self.environment = []
         self.term = input_lambda
         
-        self.choose();
+        self.choose(self);
         while (len(self.stack) and len(self.environment)):
-            self.choose();
+            self.choose(self);
         return self.stack
+
+krivine_machine.run(krivine_machine, [[-1,0,0],[-1,0]])
+
         
      
 
