@@ -33,7 +33,7 @@ class krivine_machine:
 
         #self.stack unchanged
 
-        #succ instruction
+        #success instruction
 
     def success (self):
 
@@ -41,26 +41,33 @@ class krivine_machine:
 
         self.environment = self.environment[ 1 ]
 
-        #self.stack unchanged
+    def choose(self):
+        if (type(self.term[-1]) == int) and self.term[-1] == 0:
+            self.zero()
 
-    def choose (self) :
-        foo=self.term[-1]
-        foo=isinstance(foo, int)
-        match foo:
-            case True :
-                match self.term[-1] :
-                    case 0 :
-                        self.zero()
-                    case _ :
-                        self.success()
-                        
-            case False :
-                match self.term[ -2 ]
-                    case -1 :
-                        self.app()
-                    case _ :
-                        self.abstract()
-                        def load () :
+        elif type(self.term[-1].isnumeric() == int):
+            self.success()
+            return
+
+        elif self.term[-2] == -1:
+            self.app()
+
+        else :
+            self.abstract()
+            
+    def run(self, input_lambda):
+        self.stack = []
+        self.environment = []
+        self.term = input_lambda
+        
+        self.choose();
+        while (len(self.stack) && len(self.environment)):
+            self.choose();
+        return self.stack
+        
+     
+
+        
 
             
                             
